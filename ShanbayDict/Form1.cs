@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -35,16 +36,13 @@ namespace ShanbayDict
             if (hook == null)
             {
                 hook = new GlobalHook();
-                //hook.KeyDown += new KeyEventHandler(hook_KeyDown);
-                //hook.KeyPress += new KeyPressEventHandler(hook_KeyPress);
-                //hook.KeyUp += new KeyEventHandler(hook_KeyUp);
                 hook.OnMouseActivity += new MouseEventHandler(hook_OnMouseActivity);
             }
 
         }
 
         ///// <summary>
-        ///// 鼠标移动事件
+        ///// events for mouse move
         ///// </summary>
         void hook_OnMouseActivity(object sender, MouseEventArgs e)
         {
@@ -81,11 +79,6 @@ namespace ShanbayDict
                 }
             }
             
-        }
-
-        private void set_token(string token)
-        {
-            this.token = token;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -178,9 +171,29 @@ namespace ShanbayDict
 
         private void add_word_btn_Click(object sender, EventArgs e)
         {
+            if(((Button)sender).Text == "我忘了")
+            {
+                string Url = " https://api.shanbay.com/bdc/learning/49140802237/";
+
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(Url);
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                    var response = client.PutAsync(Url, null).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        add_word_btn.Text = "已添加";
+                    }
+                    else
+                    {
+                        add_word_btn.Text = "失败";
+                    }
+                }
+            }
             if(current_word_id.Length > 0)
             {
-                add_word();
+                //add_word();
                 //string query_url = "https://api.shanbay.com/bdc/learning";
                 
                 //StringWriter sw = new StringWriter();
@@ -193,6 +206,8 @@ namespace ShanbayDict
                 //string postDataStr = sw.GetStringBuilder().ToString();
 
                 //JObject w_i = get_result(query_url, "POST", postDataStr);
+
+                
             }
         }
 
@@ -200,12 +215,9 @@ namespace ShanbayDict
         {
             HttpWebRequest request = null;
             //HTTPSQ请求  
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             request = WebRequest.Create("https://api.shanbay.com/bdc/learning") as HttpWebRequest;
-            //request.ProtocolVersion = HttpVersion.Version10;
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            //request.Headers["Authorization"] = "Bearer " + token;
 
             StringBuilder buffer = new StringBuilder();
             buffer.AppendFormat("&{0}={1}", "access_token", token);
