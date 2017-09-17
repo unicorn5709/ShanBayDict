@@ -18,6 +18,7 @@ namespace ShanbayDict
     {
         string token;
         string current_word_id;
+        string current_learning_id;
         GlobalHook hook;
         PopWindows pop;
         Word current_word;
@@ -81,11 +82,12 @@ namespace ShanbayDict
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void query_btn_Click(object sender, EventArgs e)
         {
             string w = WordInput.Text;
             Word temp = get_word(w);
             current_word_id = "";
+            current_learning_id = "";
 
             if(temp.Included)
             {
@@ -97,6 +99,7 @@ namespace ShanbayDict
                 if (temp.Learned)
                 {
                     add_word_btn.Text = "我忘了";
+                    current_learning_id = temp.LearningID;
                 }
                 else
                 {
@@ -118,37 +121,47 @@ namespace ShanbayDict
             return temp;
         }
 
-        private JObject get_result(string url, string method, string msg="")
+        private JObject get_result(string url, string method, string msg = "")
         {
-            var request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Method = method;
-            request.Headers["Authorization"] = "Bearer " + token;
-
-            if (msg.Length > 0)
-            {
-                request.ContentLength = msg.Length;
-                StreamWriter writer = new StreamWriter(request.GetRequestStream(), Encoding.ASCII);
-                writer.Write(msg);
-                writer.Flush();
-            }
-
             JObject w_info = new JObject();
-            try
+
+            using (var client = new HttpClient())
             {
-                using(var response = (HttpWebResponse)request.GetResponse())
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+
+                HttpResponseMessage response;
+                if(method == "GET")
                 {
-                    using(var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
-                    {
-                        string res = reader.ReadToEnd();
-                        w_info = (JObject)JsonConvert.DeserializeObject(res);
-                    }
+                    response = client.GetAsync(url).Result;
                 }
-                
-            }
-            catch(WebException we)
-            {
-                logon_web.Show();
+                else if(method == "PUT")
+                {
+
+                    var formContent = new FormUrlEncodedContent(new[]
+                    {
+                        new KeyValuePair<string, string>("forget", "1"), 
+                    });
+
+                    response = client.PutAsync(url, formContent).Result;
+                }
+                else
+                {
+                    var formContent = new FormUrlEncodedContent(new[]
+                    {
+                        new KeyValuePair<string, string>("id", current_word_id)
+                    });
+                    response = client.PostAsync(url, formContent).Result;
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = response.Content.ReadAsStringAsync();
+                    Console.WriteLine(data);
+                    w_info = (JObject)JsonConvert.DeserializeObject(data.Result);
+                }
             }
             return w_info;
         }
@@ -173,41 +186,37 @@ namespace ShanbayDict
         {
             if(((Button)sender).Text == "我忘了")
             {
-                string Url = " https://api.shanbay.com/bdc/learning/49140802237/";
-
-                using (var client = new HttpClient())
+                string Url = String.Format(" https://api.shanbay.com/bdc/learning/{0}/", current_learning_id);
+                var jobj = get_result(Url, "PUT");
+                if(jobj.GetValue("msg").ToString() == "SUCCESS")
                 {
-                    client.BaseAddress = new Uri(Url);
-                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-                    var response = client.PutAsync(Url, null).Result;
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        add_word_btn.Text = "已添加";
-                    }
-                    else
-                    {
-                        add_word_btn.Text = "失败";
-                    }
+                    add_word_btn.Text = "已添加";
                 }
+                else
+                {
+                    add_word_btn.Text = "失败";
+                }
+
+                //using (var client = new HttpClient())
+                //{
+                //    client.BaseAddress = new Uri(Url);
+                //    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                //    var response = client.PutAsync(Url, null).Result;
+
+                //    if (response.IsSuccessStatusCode)
+                //    {
+                //        add_word_btn.Text = "已添加";
+                //    }
+                //    else
+                //    {
+                //        add_word_btn.Text = "失败";
+                //    }
+                //}
             }
-            if(current_word_id.Length > 0)
+            else
             {
-                //add_word();
-                //string query_url = "https://api.shanbay.com/bdc/learning";
-                
-                //StringWriter sw = new StringWriter();
-                //JsonWriter writer = new JsonTextWriter(sw);
-                //writer.WriteStartObject();
-                //writer.WritePropertyName("id");
-                //writer.WriteValue(current_word_id);
-                //writer.WriteEndObject();
-                //writer.Flush();
-                //string postDataStr = sw.GetStringBuilder().ToString();
-
-                //JObject w_i = get_result(query_url, "POST", postDataStr);
-
-                
+                string Url = String.Format("https://api.shanbay.com/bdc/learning/{0}", current_word_id);
+                var jobj = get_result(Url, "POST");
             }
         }
 

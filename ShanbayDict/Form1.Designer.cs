@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.WordInput = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.query_btn = new System.Windows.Forms.Button();
             this.exp_label = new System.Windows.Forms.Label();
             this.logon_web = new System.Windows.Forms.WebBrowser();
             this.add_word_btn = new System.Windows.Forms.Button();
@@ -44,15 +44,15 @@
             this.WordInput.TabIndex = 0;
             this.WordInput.Text = "squabble";
             // 
-            // button1
+            // query_btn
             // 
-            this.button1.Location = new System.Drawing.Point(357, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Query";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.query_btn.Location = new System.Drawing.Point(357, 12);
+            this.query_btn.Name = "query_btn";
+            this.query_btn.Size = new System.Drawing.Size(75, 29);
+            this.query_btn.TabIndex = 2;
+            this.query_btn.Text = "Query";
+            this.query_btn.UseVisualStyleBackColor = true;
+            this.query_btn.Click += new System.EventHandler(this.query_btn_Click);
             // 
             // exp_label
             // 
@@ -92,7 +92,7 @@
             this.Controls.Add(this.add_word_btn);
             this.Controls.Add(this.exp_label);
             this.Controls.Add(this.logon_web);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.query_btn);
             this.Controls.Add(this.WordInput);
             this.Name = "Dict";
             this.Text = "Form1";
@@ -105,7 +105,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox WordInput;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button query_btn;
         private System.Windows.Forms.Label exp_label;
         private System.Windows.Forms.WebBrowser logon_web;
         private System.Windows.Forms.Button add_word_btn;
