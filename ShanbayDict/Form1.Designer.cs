@@ -42,7 +42,6 @@
             this.WordInput.Name = "WordInput";
             this.WordInput.Size = new System.Drawing.Size(339, 29);
             this.WordInput.TabIndex = 0;
-            this.WordInput.Text = "squabble";
             // 
             // query_btn
             // 
