@@ -36,37 +36,47 @@
             // popword
             // 
             this.popword.AutoSize = true;
-            this.popword.Location = new System.Drawing.Point(13, 13);
+            this.popword.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.popword.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.popword.Location = new System.Drawing.Point(15, 13);
             this.popword.Name = "popword";
-            this.popword.Size = new System.Drawing.Size(0, 12);
+            this.popword.Size = new System.Drawing.Size(0, 22);
             this.popword.TabIndex = 0;
             // 
             // popexp
             // 
             this.popexp.AutoSize = true;
+            this.popexp.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.popexp.Location = new System.Drawing.Point(15, 46);
+            this.popexp.MaximumSize = new System.Drawing.Size(280, 0);
             this.popexp.Name = "popexp";
-            this.popexp.Size = new System.Drawing.Size(0, 12);
+            this.popexp.Size = new System.Drawing.Size(0, 21);
             this.popexp.TabIndex = 1;
             // 
             // control_btn
             // 
-            this.control_btn.Location = new System.Drawing.Point(105, 220);
+            this.control_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.control_btn.FlatAppearance.BorderSize = 0;
+            this.control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.control_btn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.control_btn.ForeColor = System.Drawing.Color.White;
+            this.control_btn.Location = new System.Drawing.Point(12, 167);
             this.control_btn.Name = "control_btn";
-            this.control_btn.Size = new System.Drawing.Size(75, 23);
+            this.control_btn.Size = new System.Drawing.Size(266, 29);
             this.control_btn.TabIndex = 2;
             this.control_btn.Text = "添加";
-            this.control_btn.UseVisualStyleBackColor = true;
+            this.control_btn.UseVisualStyleBackColor = false;
             this.control_btn.Click += new System.EventHandler(this.control_btn_Click);
             // 
             // PopWindows
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 276);
+            this.ClientSize = new System.Drawing.Size(290, 205);
             this.Controls.Add(this.control_btn);
             this.Controls.Add(this.popexp);
             this.Controls.Add(this.popword);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PopWindows";
             this.Text = "PopWindows";
             this.TopMost = true;

@@ -33,23 +33,37 @@
             this.exp_label = new System.Windows.Forms.Label();
             this.logon_web = new System.Windows.Forms.WebBrowser();
             this.add_word_btn = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.quit_btn = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // WordInput
             // 
+            this.WordInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WordInput.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.WordInput.Location = new System.Drawing.Point(12, 12);
+            this.WordInput.Location = new System.Drawing.Point(2, 4);
+            this.WordInput.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.WordInput.Multiline = true;
             this.WordInput.Name = "WordInput";
-            this.WordInput.Size = new System.Drawing.Size(339, 29);
+            this.WordInput.Size = new System.Drawing.Size(285, 28);
             this.WordInput.TabIndex = 0;
             // 
             // query_btn
             // 
-            this.query_btn.Location = new System.Drawing.Point(357, 12);
+            this.query_btn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.query_btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.query_btn.Location = new System.Drawing.Point(289, 3);
+            this.query_btn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.query_btn.Name = "query_btn";
-            this.query_btn.Size = new System.Drawing.Size(75, 29);
+            this.query_btn.Size = new System.Drawing.Size(75, 30);
             this.query_btn.TabIndex = 2;
-            this.query_btn.Text = "Query";
+            this.query_btn.Text = "查询";
             this.query_btn.UseVisualStyleBackColor = true;
             this.query_btn.Click += new System.EventHandler(this.query_btn_Click);
             // 
@@ -57,47 +71,139 @@
             // 
             this.exp_label.AutoSize = true;
             this.exp_label.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.exp_label.Location = new System.Drawing.Point(12, 52);
+            this.exp_label.Location = new System.Drawing.Point(10, 76);
+            this.exp_label.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
+            this.exp_label.MaximumSize = new System.Drawing.Size(420, 0);
             this.exp_label.Name = "exp_label";
             this.exp_label.Size = new System.Drawing.Size(0, 25);
             this.exp_label.TabIndex = 3;
             // 
             // logon_web
             // 
-            this.logon_web.Location = new System.Drawing.Point(12, 52);
+            this.logon_web.Location = new System.Drawing.Point(0, -51);
             this.logon_web.MinimumSize = new System.Drawing.Size(20, 20);
             this.logon_web.Name = "logon_web";
             this.logon_web.ScrollBarsEnabled = false;
-            this.logon_web.Size = new System.Drawing.Size(420, 420);
+            this.logon_web.Size = new System.Drawing.Size(439, 385);
             this.logon_web.TabIndex = 4;
             this.logon_web.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.logon_web_Navigated);
             // 
             // add_word_btn
             // 
+            this.add_word_btn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.add_word_btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.add_word_btn.Location = new System.Drawing.Point(173, 421);
+            this.add_word_btn.Location = new System.Drawing.Point(364, 3);
+            this.add_word_btn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.add_word_btn.Name = "add_word_btn";
-            this.add_word_btn.Size = new System.Drawing.Size(75, 40);
+            this.add_word_btn.Size = new System.Drawing.Size(75, 30);
             this.add_word_btn.TabIndex = 5;
             this.add_word_btn.Text = "添加";
             this.add_word_btn.UseVisualStyleBackColor = true;
             this.add_word_btn.Click += new System.EventHandler(this.add_word_btn_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.exp_label, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 325);
+            this.tableLayoutPanel1.TabIndex = 6;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tableLayoutPanel2.Controls.Add(this.query_btn, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.add_word_btn, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.WordInput, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 30);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(439, 36);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.quit_btn, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(439, 30);
+            this.tableLayoutPanel3.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(409, 30);
+            this.panel1.TabIndex = 0;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form_MouseMove);
+            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form_MouseUp);
+            // 
+            // quit_btn
+            // 
+            this.quit_btn.BackColor = System.Drawing.Color.Transparent;
+            this.quit_btn.BackgroundImage = global::ShanbayDict.Properties.Resources.close;
+            this.quit_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.quit_btn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.quit_btn.Location = new System.Drawing.Point(414, 5);
+            this.quit_btn.Margin = new System.Windows.Forms.Padding(5);
+            this.quit_btn.Name = "quit_btn";
+            this.quit_btn.Size = new System.Drawing.Size(20, 20);
+            this.quit_btn.TabIndex = 1;
+            this.quit_btn.Click += new System.EventHandler(this.quit_btn_Click);
+            // 
             // Dict
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 484);
-            this.Controls.Add(this.add_word_btn);
-            this.Controls.Add(this.exp_label);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(439, 325);
             this.Controls.Add(this.logon_web);
-            this.Controls.Add(this.query_btn);
-            this.Controls.Add(this.WordInput);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
             this.Name = "Dict";
-            this.Text = "Form1";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Shanbay Dict";
             this.Load += new System.EventHandler(this.Dict_Load);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -108,6 +214,11 @@
         private System.Windows.Forms.Label exp_label;
         private System.Windows.Forms.WebBrowser logon_web;
         private System.Windows.Forms.Button add_word_btn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel quit_btn;
     }
 }
 
