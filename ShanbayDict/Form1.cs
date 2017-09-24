@@ -26,6 +26,7 @@ namespace ShanbayDict
         string query_word_url = "https://api.shanbay.com/bdc/search/?word={0}";
         string add_forget_word_url = "https://api.shanbay.com/bdc/learning/{0}/";
         string add_new_word_url = "https://api.shanbay.com/bdc/learning/";
+        string logon_url = "https://api.shanbay.com/oauth2/authorize/?client_id={0}&response_type=token&redirect_uri=https://api.shanbay.com/oauth2/auth/success/";
 
         public Dict()
         {
@@ -37,7 +38,7 @@ namespace ShanbayDict
 
         private void Dict_Load(object sender, EventArgs e)
         {
-            logon_web.Navigate(string.Format("https://api.shanbay.com/oauth2/authorize/?client_id={0}&response_type=token&redirect_uri=https://api.shanbay.com/oauth2/auth/success/",
+            logon_web.Navigate(string.Format(logon_url,
                                              "4e058024d1090c069be8"));
             if (hook == null)
             {
@@ -75,25 +76,31 @@ namespace ShanbayDict
                     {
                         pop.Hide();
                     }
-
                 }
-                catch(Exception ee)
+                catch (Exception ee)
                 {
                     pop.set_exp("剪贴板错误，请重新选词");
                     pop.Location = new Point(e.X, e.Y);
                     return;
                 }
             }
-            
         }
 
         private void query_btn_Click(object sender, EventArgs e)
         {
             string w = WordInput.Text;
+            if(w.Length > 0)
+            {
+                query_word(w);
+            }
+        }
+
+        private void query_word(string w)
+        {
             Word temp = get_word(w);
             current_word_id = "";
 
-            if(temp.Included)
+            if (temp.Included)
             {
                 current_word_id = temp.WordID;
                 exp_label.Text = temp.CNDef;
@@ -231,6 +238,59 @@ namespace ShanbayDict
             if (leftFlag)
             {
                 leftFlag = false;//释放鼠标后标注为false;  
+            }
+        }
+
+        /// <summary>
+        /// 双击任务栏图标还原界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                //还原窗体显示    
+                WindowState = FormWindowState.Normal;
+                //激活窗体并给予它焦点
+                this.Activate();
+                //任务栏区显示图标
+                this.ShowInTaskbar = true;
+                //托盘区图标隐藏
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// 最小化到任务栏
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Dict_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                //隐藏任务栏区图标
+                this.ShowInTaskbar = false;
+                //图标显示在托盘区
+                notifyIcon1.Visible = true;
+            }
+        }
+
+        private void minimize_btn_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Dict_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == 13)
+            {
+                string w = WordInput.Text;
+                if (w.Length > 0)
+                {
+                    query_word(w);
+                }
             }
         }  
     }

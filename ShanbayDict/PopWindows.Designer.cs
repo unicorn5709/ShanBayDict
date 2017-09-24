@@ -55,7 +55,7 @@
             // 
             // control_btn
             // 
-            this.control_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.control_btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(158)))), ((int)(((byte)(133)))));
             this.control_btn.FlatAppearance.BorderSize = 0;
             this.control_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.control_btn.Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));

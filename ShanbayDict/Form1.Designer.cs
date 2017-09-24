@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dict));
             this.WordInput = new System.Windows.Forms.TextBox();
             this.query_btn = new System.Windows.Forms.Button();
             this.exp_label = new System.Windows.Forms.Label();
@@ -38,9 +40,13 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.quit_btn = new System.Windows.Forms.Panel();
+            this.minimize_btn = new System.Windows.Forms.Panel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // WordInput
@@ -49,22 +55,26 @@
             this.WordInput.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.WordInput.Location = new System.Drawing.Point(2, 4);
             this.WordInput.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.WordInput.Multiline = true;
             this.WordInput.Name = "WordInput";
-            this.WordInput.Size = new System.Drawing.Size(285, 28);
+            this.WordInput.Size = new System.Drawing.Size(285, 29);
             this.WordInput.TabIndex = 0;
+            this.WordInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Dict_KeyPress);
             // 
             // query_btn
             // 
+            this.query_btn.BackColor = System.Drawing.SystemColors.ControlDark;
             this.query_btn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.query_btn.FlatAppearance.BorderSize = 0;
+            this.query_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.query_btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.query_btn.Location = new System.Drawing.Point(289, 3);
-            this.query_btn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.query_btn.ForeColor = System.Drawing.SystemColors.Control;
+            this.query_btn.Location = new System.Drawing.Point(290, 3);
+            this.query_btn.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
             this.query_btn.Name = "query_btn";
-            this.query_btn.Size = new System.Drawing.Size(75, 30);
+            this.query_btn.Size = new System.Drawing.Size(73, 30);
             this.query_btn.TabIndex = 2;
             this.query_btn.Text = "查询";
-            this.query_btn.UseVisualStyleBackColor = true;
+            this.query_btn.UseVisualStyleBackColor = false;
             this.query_btn.Click += new System.EventHandler(this.query_btn_Click);
             // 
             // exp_label
@@ -80,7 +90,7 @@
             // 
             // logon_web
             // 
-            this.logon_web.Location = new System.Drawing.Point(0, -51);
+            this.logon_web.Location = new System.Drawing.Point(0, -47);
             this.logon_web.MinimumSize = new System.Drawing.Size(20, 20);
             this.logon_web.Name = "logon_web";
             this.logon_web.ScrollBarsEnabled = false;
@@ -90,15 +100,19 @@
             // 
             // add_word_btn
             // 
+            this.add_word_btn.BackColor = System.Drawing.SystemColors.ControlDark;
             this.add_word_btn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.add_word_btn.FlatAppearance.BorderSize = 0;
+            this.add_word_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.add_word_btn.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.add_word_btn.Location = new System.Drawing.Point(364, 3);
-            this.add_word_btn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.add_word_btn.ForeColor = System.Drawing.SystemColors.Control;
+            this.add_word_btn.Location = new System.Drawing.Point(365, 3);
+            this.add_word_btn.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
             this.add_word_btn.Name = "add_word_btn";
-            this.add_word_btn.Size = new System.Drawing.Size(75, 30);
+            this.add_word_btn.Size = new System.Drawing.Size(73, 30);
             this.add_word_btn.TabIndex = 5;
             this.add_word_btn.Text = "添加";
-            this.add_word_btn.UseVisualStyleBackColor = true;
+            this.add_word_btn.UseVisualStyleBackColor = false;
             this.add_word_btn.Click += new System.EventHandler(this.add_word_btn_Click);
             // 
             // tableLayoutPanel1
@@ -141,30 +155,32 @@
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(158)))), ((int)(((byte)(133)))));
+            this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel3.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.quit_btn, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.quit_btn, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.minimize_btn, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(439, 30);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(158)))), ((int)(((byte)(133)))));
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(409, 30);
+            this.panel1.Size = new System.Drawing.Size(379, 30);
             this.panel1.TabIndex = 0;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form_MouseMove);
@@ -183,6 +199,34 @@
             this.quit_btn.TabIndex = 1;
             this.quit_btn.Click += new System.EventHandler(this.quit_btn_Click);
             // 
+            // minimize_btn
+            // 
+            this.minimize_btn.BackgroundImage = global::ShanbayDict.Properties.Resources.minimize;
+            this.minimize_btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.minimize_btn.Location = new System.Drawing.Point(384, 5);
+            this.minimize_btn.Margin = new System.Windows.Forms.Padding(5);
+            this.minimize_btn.Name = "minimize_btn";
+            this.minimize_btn.Size = new System.Drawing.Size(20, 20);
+            this.minimize_btn.TabIndex = 2;
+            this.minimize_btn.Click += new System.EventHandler(this.minimize_btn_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "ShanbayDict";
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(3, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 22);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Shanbay Dict";
+            // 
             // Dict
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -192,17 +236,21 @@
             this.Controls.Add(this.logon_web);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Dict";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Shanbay Dict";
             this.Load += new System.EventHandler(this.Dict_Load);
+            this.SizeChanged += new System.EventHandler(this.Dict_SizeChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -219,6 +267,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel quit_btn;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Panel minimize_btn;
+        private System.Windows.Forms.Label label1;
     }
 }
 

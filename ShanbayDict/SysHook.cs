@@ -228,6 +228,7 @@ namespace ShanbayDict
 
         private int MouseHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
+            IDataObject data;
             if ((nCode >= 0) && (OnMouseActivity != null))
             {
                 MouseButtons button = MouseButtons.None;
@@ -236,7 +237,7 @@ namespace ShanbayDict
                 switch (wParam)
                 {
                     case WM_LBUTTONDOWN:    //左键按下
-                        Clipboard.SetDataObject("", true);
+                        
                         has_start = true;
                         current_time = System.Environment.TickCount;
                         break;
@@ -247,10 +248,26 @@ namespace ShanbayDict
                             {
                                 SendKeys.Send("^c");
                             }
+                            else
+                            {
+                                Clipboard.SetDataObject("", true);
+                            }
+
+                            //Marshall the data from callback.
+                            MouseHookStruct MyMouseHookStruct =
+                                (MouseHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
+                            MouseEventArgs e = new MouseEventArgs(
+                                MouseButtons.Left,
+                                1,
+                                MyMouseHookStruct.pt.x,
+                                MyMouseHookStruct.pt.y,
+                                0);
+                            OnMouseActivity(this, e);
                         }
                         has_start = false;
                         current_time = 0;
                         button = MouseButtons.Left;
+
                         break;
                     case WM_RBUTTONDOWN:
                         button = MouseButtons.Right;
@@ -262,16 +279,17 @@ namespace ShanbayDict
                     else clickCount = 1;
 
                 //Marshall the data from callback.
-                MouseHookStruct MyMouseHookStruct =
-                    (MouseHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
-                MouseEventArgs e = new MouseEventArgs(
-                    button,
-                    clickCount,
-                    MyMouseHookStruct.pt.x,
-                    MyMouseHookStruct.pt.y,
-                    0);
-                OnMouseActivity(this, e);
+                //MouseHookStruct MyMouseHookStruct =
+                //    (MouseHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
+                //MouseEventArgs e = new MouseEventArgs(
+                //    button,
+                //    clickCount,
+                //    MyMouseHookStruct.pt.x,
+                //    MyMouseHookStruct.pt.y,
+                //    0);
+                //OnMouseActivity(this, e);
             }
+            //Clipboard.SetDataObject(data, true);
             return CallNextHookEx(_hMouseHook, nCode, wParam, lParam);
         }
 
