@@ -44,6 +44,7 @@ namespace ShanbayDict
         public delegate int GlobalHookProc(int nCode, Int32 wParam, IntPtr lParam);
         int current_time;
         bool has_start;
+        
         public GlobalHook()
         {
             has_start = false;
@@ -52,6 +53,11 @@ namespace ShanbayDict
         ~GlobalHook()
         {
             Stop();
+        }
+
+        public bool HasStart
+        {
+            get { return has_start; }
         }
 
         public event MouseEventHandler OnMouseActivity;
@@ -152,10 +158,10 @@ namespace ShanbayDict
                 try
                 {
                     _hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL,
-                                                    KeyboardHookProcedure,
-                                                    Marshal.GetHINSTANCE(
-                                                    Assembly.GetExecutingAssembly().GetModules()[0]),
-                                                    0);
+                                                      KeyboardHookProcedure,
+                                                      Marshal.GetHINSTANCE(
+                                                      Assembly.GetExecutingAssembly().GetModules()[0]),
+                                                      0);
                 }
                 catch (Exception err2)
                 { }
@@ -228,16 +234,14 @@ namespace ShanbayDict
 
         private int MouseHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
-            IDataObject data;
             if ((nCode >= 0) && (OnMouseActivity != null))
             {
                 MouseButtons button = MouseButtons.None;
-                int clickCount = 0;
+                //int clickCount = 0;
 
                 switch (wParam)
                 {
                     case WM_LBUTTONDOWN:    //左键按下
-                        
                         has_start = true;
                         current_time = System.Environment.TickCount;
                         break;
@@ -250,7 +254,7 @@ namespace ShanbayDict
                             }
                             else
                             {
-                                Clipboard.SetDataObject("", true);
+                                has_start = false;
                             }
 
                             //Marshall the data from callback.
@@ -263,20 +267,21 @@ namespace ShanbayDict
                                 MyMouseHookStruct.pt.y,
                                 0);
                             OnMouseActivity(this, e);
+                            has_start = false;
                         }
-                        has_start = false;
-                        current_time = 0;
-                        button = MouseButtons.Left;
+                        
+                        //current_time = 0;
+                        //button = MouseButtons.Left;
 
                         break;
                     case WM_RBUTTONDOWN:
                         button = MouseButtons.Right;
                         break;
                 }
-                if (button != MouseButtons.None)
-                    if (wParam == WM_LBUTTONDBLCLK || wParam == WM_RBUTTONDBLCLK)
-                        clickCount = 2;
-                    else clickCount = 1;
+                //if (button != MouseButtons.None)
+                //    if (wParam == WM_LBUTTONDBLCLK || wParam == WM_RBUTTONDBLCLK)
+                //        clickCount = 2;
+                //    else clickCount = 1;
 
                 //Marshall the data from callback.
                 //MouseHookStruct MyMouseHookStruct =

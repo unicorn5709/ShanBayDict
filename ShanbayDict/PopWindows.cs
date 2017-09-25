@@ -36,9 +36,11 @@ namespace ShanbayDict
         {
             if (w.Included)
             {
-                popword.Text = w.WordContent;
-                popexp.Text = "";
-                popexp.Text = w.CNDef;
+                popword.Text = w.WordStr;
+                //popexp.Text = "";
+                //popexp.Text = w.CNDef;
+                //RenderRainbowText(w.CNDef, test_display);
+                Dict.display_explanation(w.CNDef, test_display, 18, 12);
                 if (w.Learned)
                 {
                     control_btn.Text = "我忘了";
@@ -52,7 +54,8 @@ namespace ShanbayDict
             }
             else
             {
-                popword.Text = "查无此词";
+                popword.Text = w.WordStr;
+                popexp.Text = "查无此词";
                 control_btn.Enabled = false;
             }
         }

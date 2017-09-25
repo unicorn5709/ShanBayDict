@@ -10,15 +10,17 @@ namespace ShanbayDict
     public class Word
     {
         private string _w;
+        private string q_w;
         private bool has_def;
         private string cn_def;
         private bool haslearn;
         private string w_id;
         private string learning_id;
 
-        public Word(JObject w_info)
+        public Word(JObject w_info, string w)
         {
             _w = "";
+            q_w = w;
             has_def = false;
             cn_def = "查无此词";
             haslearn = false;
@@ -26,9 +28,10 @@ namespace ShanbayDict
             load_word(w_info);
         }
 
-        public Word()
+        public Word(string w)
         {
             _w = "";
+            q_w = w;
             has_def = false;
             cn_def = "查无此词";
             haslearn = false;
@@ -66,6 +69,14 @@ namespace ShanbayDict
             get
             {
                 return _w;
+            }
+        }
+
+        public string WordStr
+        {
+            get
+            {
+                return q_w;
             }
         }
 

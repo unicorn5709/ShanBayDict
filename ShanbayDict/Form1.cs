@@ -45,7 +45,9 @@ namespace ShanbayDict
                 hook = new GlobalHook();
                 hook.OnMouseActivity += new MouseEventHandler(hook_OnMouseActivity);
             }
+            pop.Hide();
 
+            //display_explanation("查无此词", exp_output, 33);
         }
 
         ///// <summary>
@@ -58,9 +60,16 @@ namespace ShanbayDict
                 try
                 {
                     IDataObject data = Clipboard.GetDataObject();
+                    if(!((GlobalHook)sender).HasStart)
+                    {
+                        pop.Hide();
+                        return;
+                    }
+
                     if (data.GetDataPresent(DataFormats.Text))
                     {
                         string temp = data.GetData(DataFormats.Text).ToString();
+
                         if (temp.Length > 0)
                         {
                             pop.set_content(get_word(temp));
@@ -81,6 +90,7 @@ namespace ShanbayDict
                 {
                     pop.set_exp("剪贴板错误，请重新选词");
                     pop.Location = new Point(e.X, e.Y);
+                    pop.Show();
                     return;
                 }
             }
@@ -103,7 +113,8 @@ namespace ShanbayDict
             if (temp.Included)
             {
                 current_word_id = temp.WordID;
-                exp_label.Text = temp.CNDef;
+                //exp_label.Text = temp.CNDef;
+                display_explanation(temp.CNDef, exp_output, 33);
 
                 add_word_btn.Visible = temp.Included;
 
@@ -121,7 +132,7 @@ namespace ShanbayDict
 
         private Word get_word(string w)
         {
-            Word temp = new Word();
+            Word temp = new Word(w);
             if (w.Length > 0)
             {
                 JObject w_info = get_result("GET", w);
@@ -212,6 +223,64 @@ namespace ShanbayDict
         private void quit_btn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public static void display_explanation(string Text, PictureBox pb, int max_len, int font_size=14)
+        {
+            // PictureBox needs an image to draw on
+            pb.Image = new Bitmap(pb.Width, pb.Height);
+            using (Graphics g = Graphics.FromImage(pb.Image))
+            {
+                // create all-white background for drawing
+                SolidBrush brush = new SolidBrush(SystemColors.Control);
+                g.FillRectangle(brush, 0, 0,
+                                pb.Image.Width, pb.Image.Height);
+                string[] chunks = Text.Split('\n');
+
+                brush = new SolidBrush(Color.Black);
+                var brush_param = new SolidBrush(Color.FromArgb(32, 158, 133));
+                Font[] fonts = new Font[]{
+                    new Font("微软雅黑", font_size, FontStyle.Bold, GraphicsUnit.Point, ((byte)(134))),
+                    new Font("微软雅黑", font_size, FontStyle.Regular, GraphicsUnit.Point, ((byte)(134)))
+                };
+                float y = 0;
+                for (int i = 0; i < chunks.Length; i++)
+                {
+                    // draw text in whatever color
+                    string sub_str = chunks[i];
+                    int spot_ind = sub_str.LastIndexOf('.');
+
+                    if (spot_ind == -1)
+                    {
+                        g.DrawString(chunks[i], fonts[1], brush, 0, y);
+                    }
+                    else
+                    {
+                        float x = 0;
+                        string fore_str = sub_str.Substring(0, spot_ind);
+                        string post_str = sub_str.Substring(spot_ind);
+                        g.DrawString(fore_str, fonts[0], brush_param, x, y);
+                        x += (g.MeasureString(fore_str, fonts[0])).Width;
+
+                        while(post_str.Length > max_len)
+                        {
+                            var cu_str = post_str.Substring(0, max_len);
+                            g.DrawString(cu_str, fonts[1], brush, x, y);
+                            y += (g.MeasureString(cu_str, fonts[1])).Height;
+                            post_str = post_str.Substring(max_len);
+                        }
+                            
+                        g.DrawString(post_str, fonts[1], brush, x, y);
+                    }
+                    // measure text and advance x
+                    // draw the comma back in, in black
+                    if (i < (chunks.Length - 1))
+                    {
+                        g.DrawString("\n", pb.Font, brush, 0, y);
+                    }
+                    y += (g.MeasureString(chunks[i], fonts[0])).Height;
+                }
+            }
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e)
