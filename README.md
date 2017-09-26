@@ -6,11 +6,9 @@
 ## 使用说明
 
 - 如果为首次打开, 将弹出用户名输入界面, 再次打开软件将直接进入授权界面, 点击授权:
-
 ![](https://github.com/unicorn5709/ShanBayDict/blob/master/screenshot/ui-1.png?raw=true)
 
 - 软件主界面:
-
 ![](https://github.com/unicorn5709/ShanBayDict/blob/master/screenshot/ui-2.png?raw=true)
 
 - 输入框录入待查单词后点击查词(或使用键盘enter键), 显示查询界面:
