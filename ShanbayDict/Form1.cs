@@ -62,7 +62,18 @@ namespace ShanbayDict
                     IDataObject data = Clipboard.GetDataObject();
                     if(!((GlobalHook)sender).HasStart)
                     {
-                        pop.Hide();
+                        if(pop.Visible)
+                        {
+                            var x_min = pop.Location.X;
+                            var x_max = x_min + pop.Width;
+                            var y_min = pop.Location.Y;
+                            var y_max = y_min + pop.Height;
+
+                            if (e.X <= x_min || e.X >= x_max || e.Y <= y_min || e.Y >= y_max)
+                            {
+                                pop.Hide();
+                            }
+                        }
                         return;
                     }
 

@@ -141,14 +141,14 @@ namespace ShanbayDict
                                                    0);
                 }
                 catch (Exception err)
-                { }
+                {
+                }
                 //如果安装鼠标钩子失败
                 if (_hMouseHook == 0)
                 {
                     Stop();
                     Console.WriteLine("setup hook failed.");
                     return false;
-                    //throw new Exception("SetWindowsHookEx failed.");
                 }
             }
             //安装键盘钩子
