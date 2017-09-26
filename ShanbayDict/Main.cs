@@ -124,7 +124,6 @@ namespace ShanbayDict
             if (temp.Included)
             {
                 current_word_id = temp.WordID;
-                //exp_label.Text = temp.CNDef;
                 display_explanation(temp.CNDef, exp_output, 33);
 
                 add_word_btn.Visible = temp.Included;
@@ -238,11 +237,9 @@ namespace ShanbayDict
 
         public static void display_explanation(string Text, PictureBox pb, int max_len, int font_size=14)
         {
-            // PictureBox needs an image to draw on
             pb.Image = new Bitmap(pb.Width, pb.Height);
             using (Graphics g = Graphics.FromImage(pb.Image))
             {
-                // create all-white background for drawing
                 SolidBrush brush = new SolidBrush(SystemColors.Control);
                 g.FillRectangle(brush, 0, 0,
                                 pb.Image.Width, pb.Image.Height);
@@ -257,7 +254,6 @@ namespace ShanbayDict
                 float y = 0;
                 for (int i = 0; i < chunks.Length; i++)
                 {
-                    // draw text in whatever color
                     string sub_str = chunks[i];
                     int spot_ind = sub_str.LastIndexOf('.');
 
@@ -283,8 +279,6 @@ namespace ShanbayDict
                             
                         g.DrawString(post_str, fonts[1], brush, x, y);
                     }
-                    // measure text and advance x
-                    // draw the comma back in, in black
                     if (i < (chunks.Length - 1))
                     {
                         g.DrawString("\n", pb.Font, brush, 0, y);
@@ -330,13 +324,9 @@ namespace ShanbayDict
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                //还原窗体显示    
                 WindowState = FormWindowState.Normal;
-                //激活窗体并给予它焦点
                 this.Activate();
-                //任务栏区显示图标
                 this.ShowInTaskbar = true;
-                //托盘区图标隐藏
                 notifyIcon1.Visible = false;
             }
         }
@@ -350,9 +340,7 @@ namespace ShanbayDict
         {
             if (WindowState == FormWindowState.Minimized)
             {
-                //隐藏任务栏区图标
                 this.ShowInTaskbar = false;
-                //图标显示在托盘区
                 notifyIcon1.Visible = true;
             }
         }
@@ -371,6 +359,22 @@ namespace ShanbayDict
                 {
                     query_word(w);
                 }
+            }
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void 打开界面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                WindowState = FormWindowState.Normal;
+                this.Activate();
+                this.ShowInTaskbar = true;
+                notifyIcon1.Visible = false;
             }
         }  
     }

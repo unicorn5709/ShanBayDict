@@ -37,9 +37,6 @@ namespace ShanbayDict
             if (w.Included)
             {
                 popword.Text = w.WordStr;
-                //popexp.Text = "";
-                //popexp.Text = w.CNDef;
-                //RenderRainbowText(w.CNDef, test_display);
                 Dict.display_explanation(w.CNDef, test_display, 18, 12);
                 if (w.Learned)
                 {
