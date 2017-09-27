@@ -283,19 +283,19 @@
             this.打开界面ToolStripMenuItem,
             this.退出ToolStripMenuItem});
             this.iconrightclick.Name = "iconrightclick";
-            this.iconrightclick.Size = new System.Drawing.Size(153, 70);
+            this.iconrightclick.Size = new System.Drawing.Size(125, 48);
             // 
             // 打开界面ToolStripMenuItem
             // 
             this.打开界面ToolStripMenuItem.Name = "打开界面ToolStripMenuItem";
-            this.打开界面ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.打开界面ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.打开界面ToolStripMenuItem.Text = "打开界面";
             this.打开界面ToolStripMenuItem.Click += new System.EventHandler(this.打开界面ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -309,6 +309,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "Dict";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

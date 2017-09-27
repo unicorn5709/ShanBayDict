@@ -44,6 +44,8 @@ namespace ShanbayDict
         public delegate int GlobalHookProc(int nCode, Int32 wParam, IntPtr lParam);
         int current_time;
         bool has_start;
+
+        public POINT current_pt;
         
         public GlobalHook()
         {
@@ -260,6 +262,7 @@ namespace ShanbayDict
                             //Marshall the data from callback.
                             MouseHookStruct MyMouseHookStruct =
                                 (MouseHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
+                            current_pt = MyMouseHookStruct.pt;
                             MouseEventArgs e = new MouseEventArgs(
                                 MouseButtons.Left,
                                 1,
@@ -270,31 +273,12 @@ namespace ShanbayDict
                             has_start = false;
                         }
                         
-                        //current_time = 0;
-                        //button = MouseButtons.Left;
-
                         break;
                     case WM_RBUTTONDOWN:
                         button = MouseButtons.Right;
                         break;
                 }
-                //if (button != MouseButtons.None)
-                //    if (wParam == WM_LBUTTONDBLCLK || wParam == WM_RBUTTONDBLCLK)
-                //        clickCount = 2;
-                //    else clickCount = 1;
-
-                //Marshall the data from callback.
-                //MouseHookStruct MyMouseHookStruct =
-                //    (MouseHookStruct)Marshal.PtrToStructure(lParam, typeof(MouseHookStruct));
-                //MouseEventArgs e = new MouseEventArgs(
-                //    button,
-                //    clickCount,
-                //    MyMouseHookStruct.pt.x,
-                //    MyMouseHookStruct.pt.y,
-                //    0);
-                //OnMouseActivity(this, e);
             }
-            //Clipboard.SetDataObject(data, true);
             return CallNextHookEx(_hMouseHook, nCode, wParam, lParam);
         }
 

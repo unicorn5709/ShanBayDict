@@ -44,6 +44,7 @@ namespace ShanbayDict
             {
                 hook = new GlobalHook();
                 hook.OnMouseActivity += new MouseEventHandler(hook_OnMouseActivity);
+                hook.KeyDown += new KeyEventHandler(hook_KeyDownActivity);
             }
             pop.Hide();
 
@@ -103,6 +104,37 @@ namespace ShanbayDict
                     pop.Location = new Point(e.X, e.Y);
                     pop.Show();
                     return;
+                }
+            }
+        }
+
+        private void hook_KeyDownActivity(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine(e.KeyCode);
+            if (e.KeyCode == (Keys)164)
+            {
+                SendKeys.Send("^c");
+
+                IDataObject data = Clipboard.GetDataObject();
+
+                if (data.GetDataPresent(DataFormats.Text))
+                {
+                    string temp = data.GetData(DataFormats.Text).ToString();
+
+                    if (temp.Length > 0)
+                    {
+                        pop.set_content(get_word(temp));
+                        pop.Location = new Point(((GlobalHook)sender).current_pt.x, ((GlobalHook)sender).current_pt.y);
+                        pop.Show();
+                    }
+                    else
+                    {
+                        pop.Hide();
+                    }
+                }
+                else
+                {
+                    pop.Hide();
                 }
             }
         }
